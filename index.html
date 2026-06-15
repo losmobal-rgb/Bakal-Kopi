@@ -1,0 +1,423 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Bakol Kopi</title>
+
+        <!--fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,300;0,400;0,700;1,700&display=swap"
+            rel="stylesheet"
+        />
+
+        <!-- Feather Icons -->
+        <script src="https://unpkg.com/feather-icons"></script>
+
+        <!-- My style -->
+        <link rel="stylesheet" href="style.css" />
+
+        <!-- AlpineJs -->
+        <script
+            defer
+            src="https://cdn.jsdelivr.net/npm/alpinejs@3.15.12/dist/cdn.min.js"
+        ></script>
+
+        <!-- App -->
+        <script src="app.js"></script>
+    </head>
+
+    <body>
+        <!-- navbar start -->
+        <nav class="navbar" x-data>
+            <a href="#" class="navbar-logo">Bakol<span>Kopi</span></a>
+            <div class="navbar-nav">
+                <a href="#">Home</a>
+                <a href="#about">Seputar Bakol Kopi</a>
+                <a href="#menu">Menu ne bolo</a>
+                <a href="#contact">Kontak</a>
+            </div>
+
+            <div class="navbar-extra">
+                <a href="#" id="search-button"><i data-feather="search"></i></a>
+                <a href="#" id="shopping-cart-button">
+                    <i data-feather="shopping-cart"></i>
+                    <span
+                        class="quantity-badge"
+                        x-show="$store.cart.quantity"
+                        x-text="$store.cart.quantity"
+                    ></span>
+                </a>
+                <a href="#" id="hamburger-menu"><i data-feather="menu"></i></a>
+            </div>
+
+            <!-- Search Form start -->
+            <div class="search-form">
+                <input
+                    type="search"
+                    id="search-box"
+                    placeholder="search-here..."
+                />
+                <label for="search-box"><i data-feather="search"></i></label>
+            </div>
+            <!-- Search Form end -->
+
+            <!-- Shopping Cart start -->
+            <div class="shopping-cart">
+                <template x-for="item in $store.cart.items" :key="item.id">
+                    <div class="cart-item">
+                        <img :src="item.img" :alt="item.name" />
+                        <div class="item-detail">
+                            <h3 x-text="item.name"></h3>
+                            <div class="item-price">
+                                <span x-text="rupiah(item.price)"></span>
+                                &times;
+                                <button
+                                    id="remove"
+                                    @click="$store.cart.remove(item.id)"
+                                >
+                                    &minus;
+                                </button>
+                                <span x-text="item.quantity"></span>
+                                <button id="add" @click="$store.cart.add(item)">
+                                    &plus;
+                                </button>
+                                &equals;
+                                <span x-text="rupiah(item.total)"></span>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+                <h4 x-show="!$store.cart.items.length" style="margin-top: 1rem">
+                    Kamu Belum Order ya
+                </h4>
+                <h4 x-show="$store.cart.items.length">
+                    Total : <span x-text="rupiah($store.cart.total)"></span>
+                </h4>
+
+                <div class="form-container" x-show="$store.cart.items.length">
+                    <form action="" id="checkoutForm">
+                        <h5>Customer Detail</h5>
+
+                        <label for="name">
+                            <span>Name</span>
+                            <input type="text" name="name" id="name" />
+                        </label>
+
+                        <label for="email">
+                            <span>Email</span>
+                            <input type="email" name="email" id="email" />
+                        </label>
+
+                        <label for="phone">
+                            <span>Telepon</span>
+                            <input
+                                type="number"
+                                name="phone"
+                                id="phone"
+                                autocomplete="off"
+                            />
+                        </label>
+
+                        <button
+                            class="checkout-button"
+                            type="submit"
+                            id="button"
+                            value="checkout"
+                        >
+                            Checkout
+                        </button>
+                    </form>
+                </div>
+            </div>
+            <!-- Shopping Cart end -->
+        </nav>
+        <!-- navbar end -->
+
+        <!-- Hero Section start -->
+        <section class="hero" id="home">
+            <main class="content">
+                <h1>Ayo Nyeruput <span>Kopi</span></h1>
+                <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Accusantium, enim
+                </p>
+                <a href="#" class="cta">Monggo ndang tumbas</a>
+            </main>
+        </section>
+        <!-- Hero Section end -->
+
+        <!-- About Section start -->
+        <section id="about" class="about">
+            <h2>Seputar <span>Bakol Kopi</span></h2>
+
+            <div class="row">
+                <div class="about-img">
+                    <img src="Gambargelas.jpg" alt="Seputar Bakol Kopi" />
+                </div>
+                <div class="content">
+                    <h3>Kenapa Anda Ngopi?</h3>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing
+                        elit. Reprehenderit explicabo ea corrupti, facilis esse
+                        unde.
+                    </p>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing
+                        elit. Repellat nobis sequi sint porro accusamus cumque
+                        accusantium aliquid labore quos vel.
+                    </p>
+                </div>
+            </div>
+        </section>
+        <!-- About Section end -->
+
+        <!-- Menu Section start -->
+        <section id="menu" class="menu menu-section">
+            <h2>Menu ne <span>Bolo </span></h2>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas
+                provident officiis nam.
+            </p>
+
+            <div class="row">
+                <div class="menu-card">
+                    <img
+                        src="espresso.jpg"
+                        alt="espresso"
+                        class="menu-card-img"
+                    />
+                    <h3 class="menu-card-title">-- espresso --</h3>
+                    <p class="menu-card-price">Rp. 15.000</p>
+                </div>
+                <div class="menu-card">
+                    <img
+                        src="cappucino.jpg"
+                        alt="espresso"
+                        class="menu-card-img"
+                    />
+                    <h3 class="menu-card-title">-- cappucinno --</h3>
+                    <p class="menu-card-price">Rp. 10.000</p>
+                </div>
+                <div class="menu-card">
+                    <img
+                        src="ireng.jpg"
+                        alt="kopi hitam"
+                        class="menu-card-img"
+                    />
+                    <h3 class="menu-card-title">-- kopi hitam --</h3>
+                    <p class="menu-card-price">Rp. 4.000</p>
+                </div>
+                <div class="menu-card">
+                    <img
+                        src="kopi.susu.jpg"
+                        alt="espresso"
+                        class="menu-card-img"
+                    />
+                    <h3 class="menu-card-title">-- kopi susu --</h3>
+                    <p class="menu-card-price">Rp. 5.000</p>
+                </div>
+                <div class="menu-card">
+                    <img src="mocha.jpg" alt="espresso" class="menu-card-img" />
+                    <h3 class="menu-card-title">-- kopi mocha --</h3>
+                    <p class="menu-card-price">Rp. 18.000</p>
+                </div>
+                <div class="menu-card">
+                    <img
+                        src="eskopi.jpg"
+                        alt="espresso"
+                        class="menu-card-img"
+                    />
+                    <h3 class="menu-card-title">-- es kopi --</h3>
+                    <p class="menu-card-price">Rp. 7.000</p>
+                </div>
+            </div>
+        </section>
+        <!-- Menu Section end -->
+
+        <!-- Products Section start -->
+        <section
+            id="products"
+            class="products"
+            x-data="products"
+            x-init="$nextTick(() => feather.replace())"
+        >
+            <h2>Produk <span>Kami</span></h2>
+            <div class="row">
+                <template x-for="(item, index) in items" :key="index">
+                    <div class="products-card">
+                        <div class="products-icons">
+                            <a href="#" @click.prevent="$store.cart.add(item); document.querySelector('.shopping-cart').classList.add('active')">
+                                <i data-feather="shopping-cart"></i>
+                            </a>
+                            <a
+                                href="#"
+                                class="item-detail-button"
+                                @click.prevent="$store.modal.show(item)"
+                            >
+                                <i data-feather="eye"></i>
+                            </a>
+                        </div>
+                        <div class="product-image">
+                            <img :src="item.img" :alt="item.name" />
+                        </div>
+                        <div class="product-content">
+                            <h3 x-text="item.name"></h3>
+                            <div class="product-stars">
+                                <span style="color: gold; font-size: 20px"
+                                    >★★★★☆</span
+                                >
+                            </div>
+                            <div class="product-price">
+                                <span
+                                    x-text="rupiah(item.oldprice)"
+                                    class="old-price"
+                                ></span>
+                                <span
+                                    x-text="rupiah(item.price)"
+                                    class="actual-price"
+                                ></span>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </section>
+
+        <!-- Products Section end -->
+
+        <!-- Contact Section start -->
+        <section id="contact" class="contact">
+            <h2>Kontak <span>Kami </span></h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+            <div class="row">
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31638.48091683658!2d111.90409149999999!3d-7.5956346!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e784a53eb37a0e1%3A0x4027a76e35318b0!2sNganjuk%2C%20Kec.%20Nganjuk%2C%20Kabupaten%20Nganjuk%2C%20Jawa%20Timur!5e0!3m2!1sid!2sid!4v1776690911605!5m2!1sid!2sid"
+                    allowfullscreen=""
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"
+                    class="map"
+                ></iframe>
+                <form action="">
+                    <div class="input-group">
+                        <i data-feather="user"></i>
+                        <input type="text" placeholder="nama" />
+                    </div>
+                    <div class="input-group">
+                        <i data-feather="mail"></i>
+                        <input type="text" placeholder="email" />
+                    </div>
+                    <div class="input-group">
+                        <i data-feather="phone"></i>
+                        <input type="text" placeholder="nomor hp" />
+                    </div>
+                    <button type="submit" class="btn">kirim pesan</button>
+                </form>
+            </div>
+        </section>
+        <!-- Contact Section end -->
+
+        <!-- Footer start -->
+        <footer>
+            <div class="social">
+                <a href="#"><i data-feather="instagram"></i></a>
+                <a href="#"><i data-feather="twitter"></i></a>
+                <a href="#"><i data-feather="facebook"></i></a>
+            </div>
+
+            <div class="links">
+                <a href="#home">home</a>
+                <a href="#about">Seputar Bakol Kopi</a>
+                <a href="#menu">Menu ne bolo</a>
+                <a href="#contact">Kontak</a>
+            </div>
+
+            <div class="credit">
+                <p>
+                    Created by
+                    <a href="Labubu anjay gurinjay">Labubu anjay gurinjay</a> |
+                    &copy; 2026.
+                </p>
+            </div>
+        </footer>
+        <!-- Footer end -->
+
+        <!-- Modal Box Item Detail start -->
+
+        <div
+            class="modal"
+            id="item-detail-modal"
+            x-data
+            x-show="$store.modal.open"
+            x-transition
+            style="display: none"
+        >
+            <div class="modal-container">
+                <a
+                    href="#"
+                    class="close-icon"
+                    @click.prevent="$store.modal.close()"
+                    ><i data-feather="x"></i
+                ></a>
+
+                <template x-if="$store.modal.item">
+                    <div class="modal-content">
+                        <img
+                            :src="$store.modal.item.img"
+                            :alt="$store.modal.item.name"
+                        />
+
+                        <div class="product-content">
+                            <h3 x-text="$store.modal.item.name"></h3>
+                            <p>
+                                Lorem ipsum dolor sit amet consectetur,
+                                adipisicing elit. Provident, tenetur cupiditate
+                                facilis obcaecati ullam maiores minima quos
+                                perspiciatis similique itaque, esse rerum eius
+                                repellendus voluptatibus!
+                            </p>
+
+                            <div class="product-stars">
+                                <i data-feather="star" class="star-full"></i>
+                                <i data-feather="star" class="star-full"></i>
+                                <i data-feather="star" class="star-full"></i>
+                                <i data-feather="star" class="star-full"></i>
+                                <i data-feather="star"></i>
+                            </div>
+
+                            <div class="product-price">
+                                <span
+                                    class="old"
+                                    x-show="$store.modal.item.oldprice"
+                                    x-text="rupiah($store.modal.item.oldprice)"
+                                ></span>
+                                <span
+                                    x-text="rupiah($store.modal.item.price)"
+                                ></span>
+                            </div>
+
+                            <a
+                                href="#"
+                                @click.prevent="$store.cart.add($store.modal.item); $store.modal.close()"
+                                class="modal-cart-btn"
+                            >
+                                <i data-feather="shopping-cart"></i>
+                                <span>Pesen tah</span>
+                            </a>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </div>
+
+        <!-- Modal Box Item Detail end -->
+
+        <script>
+            feather.replace();
+        </script>
+        <!-- My Javascript -->
+        <script src="script.js"></script>
+    </body>
+</html>
