@@ -277,7 +277,7 @@ body {
 }
 
 .hero .content {
-    positon: fixed;
+    position: fixed;
     padding: 1.4rem 7%;
     max-width: 80rem;
     width: 100%;
